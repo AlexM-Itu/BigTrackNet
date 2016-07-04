@@ -108,9 +108,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\ConfigurationController.cs" />
+    <Compile Include="Controllers\DatabaseController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ChangeSetDetailResponse.cs" />
+    <Compile Include="Models\ChangeSetListItemModel.cs" />
+    <Compile Include="Models\ChangesetRequest.cs" />
+    <Compile Include="Models\ConfigurationResponse.cs" />
+    <Compile Include="Models\DatabaseConfigurationModel.cs" />
+    <Compile Include="Models\DatabaseTableListItemModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -126,10 +134,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
