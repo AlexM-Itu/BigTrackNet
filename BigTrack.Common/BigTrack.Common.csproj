@@ -39,6 +39,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\BigTrackConfiguration.cs" />
+    <Compile Include="Domain\ColumnChange.cs" />
+    <Compile Include="Domain\Operations.cs" />
+    <Compile Include="Domain\OperationType.cs" />
+    <Compile Include="Domain\Table.cs" />
+    <Compile Include="Domain\TableChange.cs" />
+    <Compile Include="Database\ChangeSearchOptions.cs" />
+    <Compile Include="Configuration\DatabaseConfiguration.cs" />
+    <Compile Include="Database\IDatabaseManager.cs" />
+    <Compile Include="Database\IDialectDriver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
