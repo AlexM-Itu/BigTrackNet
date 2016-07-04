@@ -20,6 +20,7 @@ namespace BigTrack.Common.Configuration
 			foreach (var databaseConfiguration in bigTrackConfiguration.DatabaseConfigurations)
 			{
 				databaseConfiguration.DialectDriver = (IDialectDriver)Activator.CreateInstanceFrom(databaseConfiguration.DialectDriverAssemblyName, databaseConfiguration.DialectDriverName).Unwrap();
+				databaseConfiguration.DialectDriver.DatabaseManager.SetConnectionString(databaseConfiguration.ConnectionString);
 			}
 		}
 

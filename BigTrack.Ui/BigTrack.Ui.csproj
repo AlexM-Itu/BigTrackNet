@@ -148,6 +148,9 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="BigTrack_sample.json" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="BigTrack.json" />
   </ItemGroup>
   <PropertyGroup>

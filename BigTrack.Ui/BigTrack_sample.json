@@ -1,0 +1,29 @@
+﻿{
+	bigTrackConfig: {
+		trackableDatabases: {
+			database: [
+				{
+					id: "myDb1",
+					name: "My Db",
+					connectionStrin: "aasdjshfjh",
+					dialectDriverAssemblyName: "org.bigtrack.sqlserver.sqlDriver",
+					dialectDriverName: "org.bigtrack.sqlserver.sqlDriver"
+				},
+				{
+					id: "myDb2",
+					name: "My Db1",
+					connectionString: "dsfgsdfgsd",
+					dialectDriverAssemblyName: "org.bigtrack.sqlserver.mySqlDriver",
+					dialectDriverName: "org.bigtrack.mysql.mySqlDriver"
+				},
+				{
+					id: "myDb3",
+					name: "My Db3",
+					connectionString: "dsfgsdfgsd",
+					dialectDriverAssemblyName: "org.bigtrack.sqlserver.MongoDbDriver",
+					dialectDriverName: "org.bigtrack.mongoDb.MongoDbDriver"
+				}
+			]
+		}
+	}
+}
