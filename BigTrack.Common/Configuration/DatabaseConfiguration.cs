@@ -2,7 +2,7 @@
 
 namespace BigTrack.Common.Configuration
 {
-	internal class DatabaseConfiguration
+	public class DatabaseConfiguration
 	{
 		public string Id { get; set; }
 		public string Name { get; set; }
