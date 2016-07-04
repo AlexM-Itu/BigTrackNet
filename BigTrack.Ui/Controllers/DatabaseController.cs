@@ -59,6 +59,22 @@ namespace BigTrack.Ui.Controllers
 					Operation = changeset.OperationType.Name
 				})
 				.ToList();
-		} 
+		}
+
+		[Route("{databaseId}/changeset/{changesetId}")]
+		public ChangeSetDetailResponse GetChangesetDetails(string databaseId, string changesetId)
+		{
+			var result = configurationManager
+				.GetDatabaseManagerByDatabaseId(databaseId)
+				.GetChangesetDetails(changesetId);
+
+			return new ChangeSetDetailResponse
+			{
+				ChangeTimestamp = result.ChangeTimestamp,
+				Operation = result.OperationType.Name,
+				PriorValues = result.ColumnChanges.ToDictionary(ch=> ch.ColumnName, ch=> ch.PriorValue),
+				UpdatedValues = result.ColumnChanges.ToDictionary(ch=> ch.ColumnName, ch=> ch.UpdatedValue)
+			};
+		}
 	}
 }
