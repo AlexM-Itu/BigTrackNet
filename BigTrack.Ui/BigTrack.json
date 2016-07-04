@@ -1,15 +1,10 @@
 ﻿{
-	bigTrackConfig: {
-		trackableDatabases: {
-			database: [
-				{
-					id: "Db1",
-					name: "Sample Cassandra Database",
-					connectionStrin: "aasdjshfjh",
-					dialectDriverAssemblyName: "BigTrack.Cassandra",
-					dialectDriverName: "BigTrack.Cassandra"
-				}
-			]
+	trackableDatabases: [{
+			id: "Db1",
+			name: "Sample Cassandra Database",
+			connectionStrin: "aasdjshfjh",
+			dialectDriverAssemblyName: "BigTrack.Cassandra",
+			dialectDriverName: "BigTrack.Cassandra"
 		}
-	}
+	]
 }

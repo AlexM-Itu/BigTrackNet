@@ -9,7 +9,7 @@ namespace BigTrack.Ui.Controllers
     public class ConfigurationController : ApiController
 	{
 		private readonly ConfigurationManager configurationManager = ConfigurationManager.Instanse;
-
+		
 		[Route("")]
 		public ConfigurationResponse GetConfiguration()
 		{

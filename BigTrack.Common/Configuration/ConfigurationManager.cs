@@ -11,12 +11,14 @@ namespace BigTrack.Common.Configuration
 	{
 		private static readonly object locker = new object();
 		private static ConfigurationManager instanse;
-		private const string configurationFilename = "bigTrack.json";
+
+		private readonly string configurationFileLocation = System.Configuration.ConfigurationManager.AppSettings["BigTrackConfigurationFileLocation"];
+		private const string configurationFilename = "BigTrack.json";
 		private BigTrackConfiguration bigTrackConfiguration;
 
 		private ConfigurationManager()
 		{
-			bigTrackConfiguration = JsonConvert.DeserializeObject<BigTrackConfiguration>(File.ReadAllText(configurationFilename));
+			bigTrackConfiguration = JsonConvert.DeserializeObject<BigTrackConfiguration>(File.ReadAllText(string.Format("{0}/{1}", configurationFileLocation, configurationFilename)));
 			foreach (var databaseConfiguration in bigTrackConfiguration.DatabaseConfigurations)
 			{
 				databaseConfiguration.DialectDriver = (IDialectDriver)Activator.CreateInstanceFrom(databaseConfiguration.DialectDriverAssemblyName, databaseConfiguration.DialectDriverName).Unwrap();
