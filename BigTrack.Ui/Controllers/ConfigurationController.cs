@@ -10,6 +10,7 @@ namespace BigTrack.Ui.Controllers
 	{
 		private readonly ConfigurationManager configurationManager = ConfigurationManager.Instanse;
 
+		[Route("")]
 		public ConfigurationResponse GetConfiguration()
 		{
 			var configurations = configurationManager.GetDatabaseConfigurations();
