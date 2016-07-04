@@ -7,7 +7,7 @@ namespace BigTrack.Common.Domain
 	{
 		public long Id { get; set; }
 		public int TableId { get; set; }
-		public DateTime ChangeTimeStamp { get; set; }
+		public DateTime ChangeTimestamp { get; set; }
 		public string User { get; set; }
 		public byte OperationTypeId { get; set; }
 		public OperationType OperationType { get; set; }
