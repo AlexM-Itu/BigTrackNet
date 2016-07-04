@@ -25,6 +25,12 @@ namespace BigTrack.Ui.Controllers
 				.ToList();
 		}
 
-
+		[Route("{databaseId}/tables/{tableId}/columns")]
+		public List<string> GetTableColumns(string databaseId, string tableId)
+		{
+			return configurationManager
+				.GetDatabaseManagerByDatabaseId(databaseId)
+				.GetTableColumns(tableId);
+		}
 	}
 }
