@@ -1,12 +1,27 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using BigTrack.Common.Database;
+using Newtonsoft.Json;
 
 namespace BigTrack.Common.Configuration
 {
 	public class ConfigurationManager
 	{
-		private ConfigurationManager() { }
 		private static readonly object locker = new object();
 		private static ConfigurationManager instanse;
+		private const string configurationFilename = "bigTrack.json";
+		private BigTrackConfiguration bigTrackConfiguration;
+
+		private ConfigurationManager()
+		{
+			bigTrackConfiguration = JsonConvert.DeserializeObject<BigTrackConfiguration>(File.ReadAllText(configurationFilename));
+			foreach (var databaseConfiguration in bigTrackConfiguration.DatabaseConfigurations)
+			{
+				databaseConfiguration.DialectDriver = (IDialectDriver)Activator.CreateInstanceFrom(databaseConfiguration.DialectDriverAssemblyName, databaseConfiguration.DialectDriverName).Unwrap();
+			}
+		}
 
 		public static ConfigurationManager Instanse
 		{
@@ -25,7 +40,16 @@ namespace BigTrack.Common.Configuration
 
 		public List<DatabaseConfiguration> GetDatabaseConfigurations()
 		{
-			throw new System.NotImplementedException();
+			return bigTrackConfiguration.DatabaseConfigurations;
+		}
+
+		public IDatabaseManager GetDatabaseManagerByDatabaseId(string databaseId)
+		{
+			return bigTrackConfiguration
+				.DatabaseConfigurations
+				.FirstOrDefault(conf => conf.Id == databaseId)
+				.DialectDriver
+				.DatabaseManager;
 		}
 	}
 }
