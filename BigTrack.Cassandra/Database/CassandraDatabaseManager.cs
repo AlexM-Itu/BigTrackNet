@@ -44,11 +44,11 @@ namespace BigTrack.Cassandra.Database
 		{
 			using (var session = GetSession())
 			{
-				var query = session.Prepare("select  * from TableChanges where tableName = ?"); // todo replace*
+				var query = session.Prepare("select columnName from TableColumns where tableId = ?"); // todo replace*
 
 				return session
 					.Execute(query.Bind(tableId))
-					.Select(row => row.GetValue<string>("name"))
+					.Select(row => row.GetValue<string>("columnName"))
 					.ToList();
 			}
 		}
