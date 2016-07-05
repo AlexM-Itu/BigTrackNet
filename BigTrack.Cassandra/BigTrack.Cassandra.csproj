@@ -45,6 +45,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\CassandraDialectDriver.cs" />
+    <Compile Include="Database\CassandraDatabaseManager.cs" />
     <Compile Include="Domain\CassandraTableChange.cs" />
     <Compile Include="Domain\ColumnChange.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -52,10 +54,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Configuration\" />
-    <Folder Include="Database\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\BigTrack.Common\BigTrack.Common.csproj">
       <Project>{3F535859-021C-4C03-B0EC-CC1A4727F5E6}</Project>
