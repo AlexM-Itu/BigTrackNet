@@ -5,6 +5,7 @@ namespace BigTrack.Cassandra.Configuration
 {
 	public class CassandraDialectDriver : IDialectDriver
 	{
+		private readonly IDatabaseManager cassandraDatabaseManager = new CassandraDatabaseManager();
 		public string DatabaseTypeName
 		{
 			get { return "Cassandra"; }
@@ -22,7 +23,7 @@ namespace BigTrack.Cassandra.Configuration
 
 		public IDatabaseManager DatabaseManager
 		{
-			get { return new CassandraDatabaseManager();}
+			get { return cassandraDatabaseManager;}
 		}
 	}
 }

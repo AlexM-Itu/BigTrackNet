@@ -1,8 +1,9 @@
 ﻿{
-	trackableDatabases: [{
+	trackableDatabases: [
+		{
 			id: "Db1",
 			name: "Sample Cassandra Database",
-			connectionStrin: "127.0.0.1",
+			connectionString: "{contactPoint: '127.0.0.1', keyspace:  'BigTrackSandbox'}",
 			dialectDriverAssemblyName: "BigTrack.Cassandra.dll",
 			dialectDriverName: "BigTrack.Cassandra.Configuration.CassandraDialectDriver"
 		}

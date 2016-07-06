@@ -1,26 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using BigTrack.Cassandra.Configuration;
 using BigTrack.Common.Database;
 using BigTrack.Common.Domain;
 using Cassandra;
+using Newtonsoft.Json;
 
 namespace BigTrack.Cassandra.Database
 {
 	public class CassandraDatabaseManager : IDatabaseManager
 	{
 		private Cluster cluster;
-		private string connectionString;
+		private CassandraConnectionConfiguration connectionConfiguration;
 
 		public void SetConnectionString(string connectionString)
 		{
-			this.connectionString = connectionString;
-			cluster = Cluster.Builder().AddContactPoint(connectionString).Build();
+			connectionConfiguration = JsonConvert.DeserializeObject<CassandraConnectionConfiguration>(connectionString);
+			cluster = Cluster.Builder().AddContactPoint(connectionConfiguration.ContactPoint).Build();
 		}
 
 		private ISession GetSession()
 		{
-			return cluster.Connect(connectionString);
+			return cluster.Connect(connectionConfiguration.Keyspace);
 		}
 
 		public List<Table> GetDatabaseTables()
@@ -28,7 +30,7 @@ namespace BigTrack.Cassandra.Database
 			using (var session = GetSession())
 			{
 				return session
-					.Execute("SELECT name FROM TableNames")
+					.Execute("SELECT \"name\" FROM \"TableNames\"")
 					.Select(row => new Table
 					{
 						Id = row.GetValue<string>("name"),

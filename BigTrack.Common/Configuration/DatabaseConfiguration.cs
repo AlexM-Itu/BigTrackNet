@@ -11,7 +11,7 @@ namespace BigTrack.Common.Configuration
 		[JsonProperty("name")]
 		public string Name { get; set; }
 
-		[JsonProperty("connectionStrin")]
+		[JsonProperty("connectionString")]
 		public string ConnectionString { get; set; }
 
 		[JsonProperty("dialectDriverAssemblyName")]
