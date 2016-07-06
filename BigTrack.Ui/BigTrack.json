@@ -3,8 +3,8 @@
 			id: "Db1",
 			name: "Sample Cassandra Database",
 			connectionStrin: "aasdjshfjh",
-			dialectDriverAssemblyName: "BigTrack.Cassandra",
-			dialectDriverName: "BigTrack.Cassandra"
+			dialectDriverAssemblyName: "BigTrack.Cassandra.dll",
+			dialectDriverName: "BigTrack.Cassandra.Configuration.CassandraDialectDriver"
 		}
 	]
 }

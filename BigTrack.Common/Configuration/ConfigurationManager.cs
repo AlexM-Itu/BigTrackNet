@@ -21,7 +21,7 @@ namespace BigTrack.Common.Configuration
 			bigTrackConfiguration = JsonConvert.DeserializeObject<BigTrackConfiguration>(File.ReadAllText(string.Format("{0}/{1}", configurationFileLocation, configurationFilename)));
 			foreach (var databaseConfiguration in bigTrackConfiguration.DatabaseConfigurations)
 			{
-				databaseConfiguration.DialectDriver = (IDialectDriver)Activator.CreateInstanceFrom(databaseConfiguration.DialectDriverAssemblyName, databaseConfiguration.DialectDriverName).Unwrap();
+				databaseConfiguration.DialectDriver = (IDialectDriver)Activator.CreateInstanceFrom(string.Format("{0}/{1}", configurationFileLocation, databaseConfiguration.DialectDriverAssemblyName), databaseConfiguration.DialectDriverName).Unwrap();
 				databaseConfiguration.DialectDriver.DatabaseManager.SetConnectionString(databaseConfiguration.ConnectionString);
 			}
 		}

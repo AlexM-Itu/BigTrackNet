@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using BigTrack.Cassandra.Domain;
 using BigTrack.Common.Database;
 using BigTrack.Common.Domain;
 using Cassandra;
-using Cassandra.Mapping;
 
 namespace BigTrack.Cassandra.Database
 {
@@ -55,12 +53,26 @@ namespace BigTrack.Cassandra.Database
 
 		public List<TableChange> FindChangesets(string tableId, ChangeSearchOptions searchOptions)
 		{
-			throw new System.NotImplementedException();
+			using (var session = GetSession())
+			{
+				var query = "select  * from TableChanges where tableName = tableId ";
+				if (searchOptions.FromDate.HasValue)
+					query += "and timestamp >= " + searchOptions.FromDate;
+
+				if (searchOptions.ToDate.HasValue)
+					query += "and timestamp <= " + searchOptions.ToDate;
+
+				if (searchOptions.User != null)
+					query += " and dbUser = " + searchOptions.User;
+
+				throw new NotImplementedException();
+			}
+
 		}
 
 		public TableChange GetChangesetDetails(string changesetId)
 		{
-			throw new System.NotImplementedException();
+			throw new NotImplementedException();
 		}
 	}
 }
