@@ -107,10 +107,10 @@ namespace BigTrack.Cassandra.Database
 		{
 			using (var session = GetSession())
 			{
-				session.UserDefinedTypes.Define(UdtMap.For<HashSet<ColumnChange>>());
+				session.UserDefinedTypes.Define(UdtMap.For<ColumnChange>("ColumnChange")); // todo Cassandra lowercases the name
 				var query = session.Prepare("SELECT * FROM \"TableChanges\" where \"id\"=?");
 					
-				var result = session.Execute(query.Bind("id", changesetId)).FirstOrDefault();
+				var result = session.Execute(query.Bind(changesetId)).FirstOrDefault();
 
 				if (result == null)
 					return null;
