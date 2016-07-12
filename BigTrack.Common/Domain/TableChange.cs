@@ -5,8 +5,8 @@ namespace BigTrack.Common.Domain
 {
 	public class TableChange
 	{
-		public long Id { get; set; }
-		public int TableId { get; set; }
+		public string Id { get; set; }
+		public string TableId { get; set; }
 		public DateTime ChangeTimestamp { get; set; }
 		public string User { get; set; }
 		public byte OperationTypeId { get; set; }
