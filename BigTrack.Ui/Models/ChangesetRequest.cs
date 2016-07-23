@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using System.Web.UI.WebControls;
 
-namespace BigTrack.Ui.Models
+namespace BigTrack.Api.Models
 {
 	public class ChangesetRequest
 	{

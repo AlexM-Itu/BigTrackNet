@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net.Sockets;
 
-namespace BigTrack.Ui.Models
+namespace BigTrack.Api.Models
 {
 	public class ChangeSetDetailResponse
 	{

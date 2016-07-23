@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using BigTrack.Api.Models;
 using BigTrack.Common.Configuration;
 using BigTrack.Common.Database;
-using BigTrack.Ui.Models;
 
-namespace BigTrack.Ui.Controllers
+namespace BigTrack.Api.Controllers
 {
 	[RoutePrefix("database")]
     public class DatabaseController : ApiController

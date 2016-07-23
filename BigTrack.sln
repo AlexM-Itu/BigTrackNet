@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BigTrack.Ui", "BigTrack.Ui\BigTrack.Ui.csproj", "{D5711591-6F64-4923-A57D-05E3D3F83AAD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BigTrack.Api", "BigTrack.Ui\BigTrack.Api.csproj", "{D5711591-6F64-4923-A57D-05E3D3F83AAD}"
 	ProjectSection(ProjectDependencies) = postProject
 		{3F535859-021C-4C03-B0EC-CC1A4727F5E6} = {3F535859-021C-4C03-B0EC-CC1A4727F5E6}
 	EndProjectSection

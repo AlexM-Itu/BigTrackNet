@@ -1,4 +1,4 @@
-﻿namespace BigTrack.Ui.Models
+﻿namespace BigTrack.Api.Models
 {
 	public class DatabaseConfigurationModel
 	{

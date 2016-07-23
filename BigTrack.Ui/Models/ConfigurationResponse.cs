@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace BigTrack.Ui.Models
+namespace BigTrack.Api.Models
 {
 	public class ConfigurationResponse
 	{

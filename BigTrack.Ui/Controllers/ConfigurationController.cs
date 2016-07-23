@@ -1,9 +1,9 @@
 ﻿using System.Linq;
 using System.Web.Http;
+using BigTrack.Api.Models;
 using BigTrack.Common.Configuration;
-using BigTrack.Ui.Models;
 
-namespace BigTrack.Ui.Controllers
+namespace BigTrack.Api.Controllers
 {
 	[RoutePrefix("configuration")]
     public class ConfigurationController : ApiController

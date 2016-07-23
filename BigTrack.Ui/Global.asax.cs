@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Http;
 
-namespace BigTrack.Ui
+namespace BigTrack.Api
 {
 	// Note: For instructions on enabling IIS6 or IIS7 classic mode, 
 	// visit http://go.microsoft.com/?LinkId=9394801
