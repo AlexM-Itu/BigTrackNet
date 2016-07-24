@@ -61,7 +61,14 @@ body{
 					}
 
 					#changesets-content{
+						#changesets-grid{
+							width: 100%;
+							height: 272px;
 
+							.ui-grid-header{
+								height: 32px;
+							}
+						}
 					}
 				}
 			}

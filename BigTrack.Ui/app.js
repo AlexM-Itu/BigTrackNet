@@ -2,7 +2,7 @@
 	serverName: "."
 };
 
-angular.module('BigTrack', ['ngRoute']);
+angular.module('BigTrack', ['ngRoute', 'ui.grid']);
 
 angular.module('BigTrack').config(['$routeProvider', function($routeProvider) {
 	$routeProvider
@@ -12,7 +12,7 @@ angular.module('BigTrack').config(['$routeProvider', function($routeProvider) {
 		})
 		.when('/changesets',
 		{
-			//controller: 'carSearchController',
+			controller: 'changesetsController',
 			templateUrl: '/views/changesets.html'
 		})
 		//.when('/detail',
