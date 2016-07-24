@@ -3,14 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BigTrack.Api", "BigTrack.Ui\BigTrack.Api.csproj", "{D5711591-6F64-4923-A57D-05E3D3F83AAD}"
-	ProjectSection(ProjectDependencies) = postProject
-		{3F535859-021C-4C03-B0EC-CC1A4727F5E6} = {3F535859-021C-4C03-B0EC-CC1A4727F5E6}
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BigTrack.Common", "BigTrack.Common\BigTrack.Common.csproj", "{3F535859-021C-4C03-B0EC-CC1A4727F5E6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BigTrack.Cassandra", "BigTrack.Cassandra\BigTrack.Cassandra.csproj", "{538A36A9-E76C-46E4-88C0-2201A0CB8173}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BigTrack.Api", "BigTrack.Api\BigTrack.Api.csproj", "{D5711591-6F64-4923-A57D-05E3D3F83AAD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,10 +15,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D5711591-6F64-4923-A57D-05E3D3F83AAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D5711591-6F64-4923-A57D-05E3D3F83AAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D5711591-6F64-4923-A57D-05E3D3F83AAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D5711591-6F64-4923-A57D-05E3D3F83AAD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3F535859-021C-4C03-B0EC-CC1A4727F5E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3F535859-021C-4C03-B0EC-CC1A4727F5E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3F535859-021C-4C03-B0EC-CC1A4727F5E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -30,6 +23,10 @@ Global
 		{538A36A9-E76C-46E4-88C0-2201A0CB8173}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{538A36A9-E76C-46E4-88C0-2201A0CB8173}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{538A36A9-E76C-46E4-88C0-2201A0CB8173}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5711591-6F64-4923-A57D-05E3D3F83AAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5711591-6F64-4923-A57D-05E3D3F83AAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5711591-6F64-4923-A57D-05E3D3F83AAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5711591-6F64-4923-A57D-05E3D3F83AAD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
