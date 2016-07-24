@@ -1,0 +1,46 @@
+﻿<html>
+<head>
+	<title>Big Track</title>
+
+	<!-- libraries -->
+	<!--<script type="text/javascript" src="libraries/jquery-1.11.3.js"></script>
+	<script type="text/javascript" src="libraries/underscore.js"></script>-->
+	<script type="text/javascript" src="Scripts/angular.js"></script>
+	<script type="text/javascript" src="Scripts/angular-route.js"></script>
+
+	<!-- custom -->
+	<link rel="stylesheet" type="text/css" href="styles/Styles.css">
+	<script type="text/javascript" src="app.js"></script>
+	<script type="text/javascript" src="services/configurationService.js"></script>
+	<script type="text/javascript" src="controllers/navBarController.js"></script>
+</head>
+<body ng-app="BigTrack">
+	<div id="container">
+		<div id="topbar">
+			<h2>Big Track</h2>
+			<img src="images/Bigfoot.jpg" alt="Big Track Logo" />
+		</div>
+		<div id="main-area">
+			<div id="sidebar" ng-controller="navBarController">
+				<!--<ul>
+			<li><a href="#/find">Find a car</a></li>
+			<li><a href="#/favourites">My favourites</a></li>
+			</ul>-->
+				<h4 class="title">Your databases</h4>
+				<select ng-model="selectedDatabase" ng-options="item as item.name for item in $scope.databases"></select>
+				<h5 class="title">Available TODO</h5>
+				<select ng-model="selectedTable" ng-options="item as item.name for item in $scope.getTables()"></select>
+			</div>
+			<div id="content">
+				<ng-view></ng-view>
+				</div>
+			</div>
+		<div id="footer">
+			<p>Developed by Alex Marchenko in ITU</p>
+		</div>
+		<div id="waiting-indicator">
+			<img src="/images/ajax-loader.gif" />
+		</div>
+	</div>
+</body>
+</html>

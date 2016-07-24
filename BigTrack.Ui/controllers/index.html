@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>BigTrack</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script type="text/javascript" src="Vendor/AngularJs/angular.js"></script>
+	<link href="Vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="Vendor/Bootstrap/css/bootstrap-glyphicons.css" rel="stylesheet">
+	<script type="text/javascript" src="app/app.js"></script>
+	<script type="text/javascript" src="app/config.js"></script>
+	<script type="text/javascript" src="app/Services/configurationService.js"></script>
+	<script type="text/javascript" src="app/Controllers/navBarController.js"></script>
+	<link href="Styles/styles.css" rel="stylesheet">
+</head>
+<body ng-app="bigTrack">
+	<!--topbar-->
+	<div class="navbar navbar-fixed-top">
+		<div class="container">
+			<a class="navbar-brand" href="/"><img src="images/Bigfoot15.jpg" alt="Big Track"></a>
+			<span class="top-bar-header">Big Track 1.0</span>
+		</div>
+	</div>
+
+	<!-- main-->
+	
+		<div class="side-bar col-2" ng-controller="navBarController">
+			<label>Select a database: </label>
+			<select ng-options="item as item.name for item in $scope.databases"></select>
+			<label>Select a table: </label>
+			<select ng-options="item as item.name for item in $scope.getTables()"></select>
+		</div>
+		<!--<div class="main-area col-10 form-horizontal">
+			<div class="row filters">
+				<div class="form-group">
+					<label class="col-lg-2 control-label" for="from-date">From:</label>
+					<div class="col-lg-2">
+						<input id="from-date" type="datetime" class="form-control"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-lg-2 control-label" for="to-date">To:</label>
+					<div class="col-lg-2">
+						<input id="to-date" type="datetime" class="form-contol"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-lg-2 control-label" for="affected-columns">Affected columns:</label>
+					<div class="col-lg-2">
+						<select id="affected-columns" multiple="multiple"></select>
+					</div>
+				</div>
+			</div>
+		</div>-->
+
+<script src="Vendor/modernizr-2.6.2.min.js"></script>
+<script src="Vendor/jquery.min.js"></script>
+<script src="Vendor/Bootstrap/js/bootstrap.min.js"></script>
+
+</body>
+</html>
