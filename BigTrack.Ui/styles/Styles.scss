@@ -46,6 +46,24 @@ body{
 						height: 695px;
 					}
 				}
+
+				#changesets{
+					#changesets-top-bar{
+						&>div{
+							display: inline-block;
+							margin-right: 10px;
+
+							&>*{
+								display: block;
+							}
+						}
+
+					}
+
+					#changesets-content{
+
+					}
+				}
 			}
 
 			#sidebar{

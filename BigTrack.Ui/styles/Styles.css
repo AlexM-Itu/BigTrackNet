@@ -32,6 +32,11 @@ body {
           opacity: 0.2;
           width: 100%;
           height: 695px; }
+        body #container #main-area #content #changesets #changesets-top-bar > div {
+          display: inline-block;
+          margin-right: 10px; }
+          body #container #main-area #content #changesets #changesets-top-bar > div > * {
+            display: block; }
       body #container #main-area #sidebar {
         width: 20%;
         float: left; }

@@ -10,11 +10,11 @@ angular.module('BigTrack').config(['$routeProvider', function($routeProvider) {
 		{
 			templateUrl: '/views/home.html'
 		})
-		//.when('/find',
-		//{
-		//	controller: 'carSearchController',
-		//	templateUrl: '/views/find.html'
-		//})
+		.when('/changesets',
+		{
+			//controller: 'carSearchController',
+			templateUrl: '/views/changesets.html'
+		})
 		//.when('/detail',
 		//{
 		//	controller: 'carDetailController',
