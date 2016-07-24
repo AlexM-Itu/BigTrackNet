@@ -2,7 +2,7 @@
 	serverName: "."
 };
 
-angular.module('BigTrack', ['ngRoute', 'ui.grid']);
+angular.module('BigTrack', ['ngRoute', 'ui.grid', 'isteven-multi-select']);
 
 angular.module('BigTrack').config(['$routeProvider', function($routeProvider) {
 	$routeProvider

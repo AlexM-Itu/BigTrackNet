@@ -58,6 +58,11 @@ body{
 							}
 						}
 
+						#affected-columns-control{
+							#multiselector{
+								max-width:300px;
+							}
+						}
 					}
 
 					#changesets-content{
