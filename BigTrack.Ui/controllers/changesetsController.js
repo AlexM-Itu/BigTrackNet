@@ -9,6 +9,18 @@
 			});
 		};
 
+		$scope.updateGrid = function() {
+			databaseService.getChangesets(
+				$route.current.params.databaseId,
+				$route.current.params.tableId,
+				$scope.fromDate,
+				$scope.toDate,
+				$scope.selectedTableColumns,
+				$scope.dbUser,
+				0,
+				50);
+		};
+
 			$scope.changesetGridColumnsDefinition = [
 				{ field: 'changesetTimestamp', displayName: 'Timestamp', width: "*" },
 				{ field: 'operation', displayName: 'Operation', width: "20%" },
