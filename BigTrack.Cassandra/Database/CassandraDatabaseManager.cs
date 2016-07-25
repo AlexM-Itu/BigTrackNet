@@ -35,7 +35,7 @@ namespace BigTrack.Cassandra.Database
 					.Execute("SELECT \"id\", \"name\" FROM \"TableNames\"")
 					.Select(row => new Table
 					{
-						Id = row.GetValue<string>("id"),
+						Id = row.GetValue<Guid>("id").ToString(),
 						Name = row.GetValue<string>("name")
 					})
 					.ToList();
@@ -46,7 +46,7 @@ namespace BigTrack.Cassandra.Database
 		{
 			using (var session = GetSession())
 			{
-				var query = session.Prepare("select \"columnName\" from \"TableColumns\" where \"tableId\" = ?"); 
+				var query = session.Prepare("select \"columnname\" from \"TableColumns\" where \"tableid\" = ?"); 
 
 				return session
 					.Execute(query.Bind(tableId))
