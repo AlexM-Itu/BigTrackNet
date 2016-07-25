@@ -1,36 +1,37 @@
 ﻿angular
 	.module("BigTrack")
 	.controller("changesetsController", [
-		"configurationService", "$scope", "$window", "databaseService", "$route", function (configurationService, $scope, $window, databaseService, $route) {
+		"configurationService", "$scope", "$window", "databaseService", "$route", function(configurationService, $scope, $window, databaseService, $route) {
 
-		var loadData = function() {
-			databaseService.getTableColumns($route.current.params.databaseId, $route.current.params.tableId).then(function(response) {
-				$scope.tableColumns = response.data;
+			var loadData = function() {
+				databaseService.getTableColumns($route.current.params.databaseId, $route.current.params.tableId).then(function(response) {
+					$scope.tableColumns = response.data;
 
-				//$scope.updateGrid();
-				$scope.updateDetails("89b8cfbf-9dd1-457e-8c18-64bec6fd7b85");
-			});
-		};
+					$scope.updateGrid();
+					$scope.updateDetails("89b8cfbf-9dd1-457e-8c18-64bec6fd7b85");
+				});
+			};
 
-		$scope.updateGrid = function() {
-			databaseService.getChangesets(
-				$route.current.params.databaseId,
-				$route.current.params.tableId,
-				$scope.fromDate,
-				$scope.toDate,
-				$scope.selectedTableColumns,
-				$scope.dbUser,
-				0,
-				50).then(function(response) {
-				$scope.changesets = response.data;
-			});
-		};
+			$scope.updateGrid = function() {
+				databaseService.getChangesets(
+					$route.current.params.databaseId,
+					$route.current.params.tableId,
+					$scope.fromDate,
+					$scope.toDate,
+					$scope.selectedTableColumns,
+					$scope.dbUser,
+					0,
+					50).then(function(response) {
+					$scope.changesets = response.data;
+					$scope.gridOptions.data = response.data;
+				});
+			};
 
-		$scope.updateDetails = function(changesetId) {
-			databaseService.getChangeset($route.current.params.databaseId, changesetId).then(function(response) {
-				$scope.sampleChengesetDetail = response.data;
-			});
-		};
+			$scope.updateDetails = function(changesetId) {
+				databaseService.getChangeset($route.current.params.databaseId, changesetId).then(function(response) {
+					$scope.sampleChengesetDetail = response.data;
+				});
+			};
 
 			$scope.changesetGridColumnsDefinition = [
 				{ field: 'changesetTimestamp', displayName: 'Timestamp', width: "*" },
@@ -38,50 +39,68 @@
 				{ field: 'user', displayName: 'User', width: "20%" },
 				{ field: 'columns', displayName: 'Columns', width: "*" }
 			];
+		$scope.gridOptions = {
+			enableRowSelection: true,
+			enableRowHeaderSelection: false,
+			multiSelect: false,
+			data: $scope.changesets,
+			columnDefs: $scope.changesetGridColumnsDefinition,
+			onRegisterApi: function(gridApi) {
+				gridApi.selection.on.rowSelectionChanged($scope, function(row) {
+					$scope.updateDetails(row.entity.changeId);
+				});
+			}
+		};
 
-			$scope.changesets = [
-				{
-					changesetTimestamp: Date(),
-					operation: 'Update',
-					user: "Alex",
-					columns: 'A, b, c, d'
-				}, {
-					changesetTimestamp: Date(),
-					operation: 'Update',
-					user: "Alex",
-					columns: 'A, b, c, d'
-				}, {
-					changesetTimestamp: Date(),
-					operation: 'Update',
-					user: "Alex",
-					columns: 'A, b, c, d'
-				}, {
-					changesetTimestamp: Date(),
-					operation: 'Update',
-					user: "Alex",
-					columns: 'A, b, c, d'
-				}, {
-					changesetTimestamp: Date(),
-					operation: 'Update',
-					user: "Alex",
-					columns: 'A, b, c, d'
-				}, {
-					changesetTimestamp: Date(),
-					operation: 'Update',
-					user: "Alex",
-					columns: 'A, b, c, d'
-				}, {
-					changesetTimestamp: Date(),
-					operation: 'Update',
-					user: "Alex",
-					columns: 'A, b, c, d'
-				}, {
-					changesetTimestamp: Date(),
-					operation: 'Update',
-					user: "Alex",
-					columns: 'A, b, c, d'
-				}
-			];
+		//$scope.gridOptions.onRegisterApi = function(gridApi) {
+		//	gridApi.selection.on.rowSelectionChanged($scope, function(row) {
+		//		$scope.updateDetails(row.changeId);
+		//	});
+		//};
+
+			//$scope.changesets = [
+			//	{
+			//		changesetTimestamp: Date(),
+			//		operation: 'Update',
+			//		user: "Alex",
+			//		columns: 'A, b, c, d'
+			//	}, {
+			//		changesetTimestamp: Date(),
+			//		operation: 'Update',
+			//		user: "Alex",
+			//		columns: 'A, b, c, d'
+			//	}, {
+			//		changesetTimestamp: Date(),
+			//		operation: 'Update',
+			//		user: "Alex",
+			//		columns: 'A, b, c, d'
+			//	}, {
+			//		changesetTimestamp: Date(),
+			//		operation: 'Update',
+			//		user: "Alex",
+			//		columns: 'A, b, c, d'
+			//	}, {
+			//		changesetTimestamp: Date(),
+			//		operation: 'Update',
+			//		user: "Alex",
+			//		columns: 'A, b, c, d'
+			//	}, {
+			//		changesetTimestamp: Date(),
+			//		operation: 'Update',
+			//		user: "Alex",
+			//		columns: 'A, b, c, d'
+			//	}, {
+			//		changesetTimestamp: Date(),
+			//		operation: 'Update',
+			//		user: "Alex",
+			//		columns: 'A, b, c, d'
+			//	}, {
+			//		changesetTimestamp: Date(),
+			//		operation: 'Update',
+			//		user: "Alex",
+			//		columns: 'A, b, c, d'
+			//	}
+			//];
 
 		//$scope.tableColumns = [
 		//	{

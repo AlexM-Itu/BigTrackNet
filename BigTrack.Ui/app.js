@@ -2,7 +2,7 @@
 	serverName: "http://localhost:16261/"
 };
 
-angular.module('BigTrack', ['ngRoute', 'ui.grid', 'isteven-multi-select']);
+angular.module('BigTrack', ['ngRoute', 'ui.grid', 'ui.grid.selection', 'isteven-multi-select']);
 
 angular.module('BigTrack').config(['$routeProvider', function($routeProvider) {
 	$routeProvider
