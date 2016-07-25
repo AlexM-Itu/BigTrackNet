@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Net.Http.Formatting;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using Newtonsoft.Json.Serialization;
 
 namespace BigTrack.Api
@@ -10,6 +11,9 @@ namespace BigTrack.Api
 		public static void Register(HttpConfiguration config)
 		{
 			config.MapHttpAttributeRoutes();
+
+			var cors = new EnableCorsAttribute("*", "*", "*");
+			config.EnableCors(cors);
 
 			var jsonFormatter = config.Formatters.OfType<JsonMediaTypeFormatter>().First();
 			jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();

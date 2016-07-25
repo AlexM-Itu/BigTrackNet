@@ -37,9 +37,9 @@
 			<li><a href="#/favourites">My favourites</a></li>
 			</ul>-->
 				<h4 class="title">Your databases</h4>
-				<select ng-model="selectedDatabase" ng-options="item as item.name for item in $scope.databases"></select>
-				<h5 class="title">Available TODO</h5>
-				<select ng-model="selectedTable" ng-options="item as item.name for item in $scope.getTables()"></select>
+				<select ng-model="selectedDatabase" ng-options="item as item.name for item in databases" ng-change="getTables(selectedDatabase.id)"></select>
+				<h5 class="title" ng-show="isTableSelectorVisible">Available {{ selectedDatabase.catalogTypeName }}s:</h5>
+				<select ng-model="selectedTable" ng-options="item as item.name for item in databaseTables" ng-show="isTableSelectorVisible" ng-change="goToTablePage(selectedDatabase.id, selectedTable.id)"></select>
 			</div>
 			<div id="content">
 				<ng-view></ng-view>

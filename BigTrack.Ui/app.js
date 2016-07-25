@@ -1,5 +1,5 @@
 ﻿var CONFIG = {
-	serverName: "."
+	serverName: "http://localhost:16261/"
 };
 
 angular.module('BigTrack', ['ngRoute', 'ui.grid', 'isteven-multi-select']);
@@ -10,7 +10,7 @@ angular.module('BigTrack').config(['$routeProvider', function($routeProvider) {
 		{
 			templateUrl: '/views/home.html'
 		})
-		.when('/changesets',
+		.when('/changesets/:databaseId/:tableId',
 		{
 			controller: 'changesetsController',
 			templateUrl: '/views/changesets.html'
