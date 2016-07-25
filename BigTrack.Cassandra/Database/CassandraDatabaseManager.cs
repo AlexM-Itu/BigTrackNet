@@ -46,11 +46,10 @@ namespace BigTrack.Cassandra.Database
 		{
 			using (var session = GetSession())
 			{
-				var query = session.Prepare("select \"columnname\" from \"TableColumns\""); // where \"tableid\" = ?"); 
+				var query = session.Prepare("select \"columnname\" from \"TableColumns\" where \"tableid\" = ? allow filtering"); 
 
 				return session
-					//.Execute(query.Bind(tableId))
-					.Execute("select \"id\", \"columnname\" from \"TableColumns\"")
+					.Execute(query.Bind(tableId))
 					.Select(row => new Column
 					{
 						Id = row.GetValue<Guid>("id").ToString(),
@@ -94,7 +93,7 @@ namespace BigTrack.Cassandra.Database
 		{
 			using (var session = GetSession())
 			{
-				var query = session.Prepare("SELECT \"id\", \"changeId\", \"tableId\", \"tableName\", \"changeTimestamp\", \"dbUser\", \"columnId\", \"columnName\", \"priorValue\", \"updatedValue\", \"operation\"  FROM \"TableChanges\" where \"changeId\"=?");
+				var query = session.Prepare("SELECT \"id\", \"changeid\", \"tableid\", \"tablename\", \"changetimestamp\", \"dbuser\", \"columnid\", \"columnname\", \"priorvalue\", \"updatedvalue\", \"operation\"  FROM \"TableChanges\" where \"changeid\"=?");
 					
 				var result = session.Execute(query.Bind(changesetId)).ToList();
 

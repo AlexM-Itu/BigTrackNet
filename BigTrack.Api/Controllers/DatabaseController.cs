@@ -69,6 +69,9 @@ namespace BigTrack.Api.Controllers
 				.GetDatabaseManagerByDatabaseId(databaseId)
 				.GetChangesetDetails(changesetId);
 
+			if (result == null)
+				return null;
+
 			return new ChangeSetDetailResponse
 			{
 				ChangeTimestamp = result.ChangeTimestamp,
