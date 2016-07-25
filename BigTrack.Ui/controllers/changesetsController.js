@@ -6,6 +6,9 @@
 		var loadData = function() {
 			databaseService.getTableColumns($route.current.params.databaseId, $route.current.params.tableId).then(function(response) {
 				$scope.tableColumns = response.data;
+
+				//$scope.updateGrid();
+				$scope.updateDetails("89b8cfbf-9dd1-457e-8c18-64bec6fd7b85");
 			});
 		};
 
@@ -18,7 +21,15 @@
 				$scope.selectedTableColumns,
 				$scope.dbUser,
 				0,
-				50);
+				50).then(function(response) {
+				$scope.changesets = response.data;
+			});
+		};
+
+		$scope.updateDetails = function(changesetId) {
+			databaseService.getChangeset($route.current.params.databaseId, changesetId).then(function(response) {
+				$scope.sampleChengesetDetail = response.data;
+			});
 		};
 
 			$scope.changesetGridColumnsDefinition = [
@@ -112,42 +123,42 @@
 		//	}
 		//];
 
-		$scope.sampleChengesetDetail = {
-			priorValues: [
-				{ key: 'col1', value: 'val1' },
-				{
-					key: 'col2',
-					value: 'val2'
-				},
-				{ key: 'col3', value: 'val3' },
-				{ key: 'col4', value: 'val4' },
-				{ key: 'col4', value: 'val4' },
-				{ key: 'col4', value: 'val4' },
-				{ key: 'col4', value: 'val4' },
-				{ key: 'col4', value: 'val4' },
-				{ key: 'col4', value: 'val4' },
-				{ key: 'col4', value: 'val4' },
-				{ key: 'col4', value: 'val4' }
-			],
-			updatedValues: [
-				{ key: 'col1', value: 'new val1' },
-				{
-					key: 'col2',
-					value: 'new val2'
-				},
-				{ key: 'col3', value: 'new val3' },
-				{ key: 'col4', value: 'val4' },
-				{ key: 'col4', value: 'val4' },
-				{ key: 'col4', value: 'val4' },
-				{ key: 'col4', value: 'val4' },
-				{ key: 'col4', value: 'val4' },
-				{ key: 'col4', value: 'val4' },
-				{ key: 'col4', value: 'val4' },
-				{ key: 'col4', value: 'val4' }
-			],
-			operation: "Insert",
-			changeTimestamp: Date()
-		};
+		//$scope.sampleChengesetDetail = {
+		//	priorValues: [
+		//		{ key: 'col1', value: 'val1' },
+		//		{
+		//			key: 'col2',
+		//			value: 'val2'
+		//		},
+		//		{ key: 'col3', value: 'val3' },
+		//		{ key: 'col4', value: 'val4' },
+		//		{ key: 'col4', value: 'val4' },
+		//		{ key: 'col4', value: 'val4' },
+		//		{ key: 'col4', value: 'val4' },
+		//		{ key: 'col4', value: 'val4' },
+		//		{ key: 'col4', value: 'val4' },
+		//		{ key: 'col4', value: 'val4' },
+		//		{ key: 'col4', value: 'val4' }
+		//	],
+		//	updatedValues: [
+		//		{ key: 'col1', value: 'new val1' },
+		//		{
+		//			key: 'col2',
+		//			value: 'new val2'
+		//		},
+		//		{ key: 'col3', value: 'new val3' },
+		//		{ key: 'col4', value: 'val4' },
+		//		{ key: 'col4', value: 'val4' },
+		//		{ key: 'col4', value: 'val4' },
+		//		{ key: 'col4', value: 'val4' },
+		//		{ key: 'col4', value: 'val4' },
+		//		{ key: 'col4', value: 'val4' },
+		//		{ key: 'col4', value: 'val4' },
+		//		{ key: 'col4', value: 'val4' }
+		//	],
+		//	operation: "Insert",
+		//	changeTimestamp: Date()
+		//};
 
 		loadData();
 	}

@@ -14,4 +14,7 @@
 			affectedColumns: affectedcolumns
 		});
 	};
+	this.getChangeset = function(databaseId, changesetId) {
+		return $http.get(CONFIG.serverName + "database/" + databaseId + "/changeset/" + changesetId);
+	};
 }]);

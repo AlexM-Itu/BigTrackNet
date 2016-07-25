@@ -46,7 +46,7 @@ namespace BigTrack.Cassandra.Database
 		{
 			using (var session = GetSession())
 			{
-				var query = session.Prepare("select \"columnname\" from \"TableColumns\" where \"tableid\" = ? allow filtering"); 
+				var query = session.Prepare("select \"id\", \"columnname\" from \"TableColumns\" where \"tableid\" = ? allow filtering"); 
 
 				return session
 					.Execute(query.Bind(tableId))
@@ -93,7 +93,7 @@ namespace BigTrack.Cassandra.Database
 		{
 			using (var session = GetSession())
 			{
-				var query = session.Prepare("SELECT \"id\", \"changeid\", \"tableid\", \"tablename\", \"changetimestamp\", \"dbuser\", \"columnid\", \"columnname\", \"priorvalue\", \"updatedvalue\", \"operation\"  FROM \"TableChanges\" where \"changeid\"=?");
+				var query = session.Prepare("SELECT \"id\", \"changeid\", \"tableid\", \"tablename\", \"changetimestamp\", \"dbuser\", \"columnid\", \"columnname\", \"priorvalue\", \"updatedvalue\", \"operation\"  FROM \"TableChanges\" where \"changeid\"=? allow filtering");
 					
 				var result = session.Execute(query.Bind(changesetId)).ToList();
 
@@ -155,16 +155,16 @@ namespace BigTrack.Cassandra.Database
 			return new CassandraTableChange
 			{
 				Id = cassandraTableChangeRow.GetValue<Guid>("id"),
-				ChangeId = cassandraTableChangeRow.GetValue<string>("changeId"),
-				TableId = cassandraTableChangeRow.GetValue<string>("tableId"),
-				TableName = cassandraTableChangeRow.GetValue<string>("tableName"),
-				ChangeTimestamp = cassandraTableChangeRow.GetValue<DateTime>("changeTimestamp"),
-				User = cassandraTableChangeRow.GetValue<string>("dbUser"),
-				ColumnId = cassandraTableChangeRow.GetValue<string>("columnId"),
-				ColumnName = cassandraTableChangeRow.GetValue<string>("columnName"),
-				PriorValue = cassandraTableChangeRow.GetValue<string>("priorValue"),
-				UpdatedValue = cassandraTableChangeRow.GetValue<string>("updatedValue"),
-				Operation = cassandraTableChangeRow.GetValue<byte>("operation")
+				ChangeId = cassandraTableChangeRow.GetValue<string>("changeid"),
+				TableId = cassandraTableChangeRow.GetValue<string>("tableid"),
+				TableName = cassandraTableChangeRow.GetValue<string>("tablename"),
+				ChangeTimestamp = cassandraTableChangeRow.GetValue<DateTime>("changetimestamp"),
+				User = cassandraTableChangeRow.GetValue<string>("dbuser"),
+				ColumnId = cassandraTableChangeRow.GetValue<string>("columnid"),
+				ColumnName = cassandraTableChangeRow.GetValue<string>("columnname"),
+				PriorValue = cassandraTableChangeRow.GetValue<string>("priorvalue"),
+				UpdatedValue = cassandraTableChangeRow.GetValue<string>("updatedvalue"),
+				Operation = (byte)cassandraTableChangeRow.GetValue<sbyte>("operation")
 			};
 		}
 	}

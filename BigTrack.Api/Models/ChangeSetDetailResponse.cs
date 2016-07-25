@@ -5,9 +5,9 @@ namespace BigTrack.Api.Models
 {
 	public class ChangeSetDetailResponse
 	{
-		public Dictionary<string, string> PriorValues { get; set; }
-		public Dictionary<string, string> UpdatedValues { get; set; }
-		public string Operation { get; set; } //todo change to enum
+		public List<KeyValuePair<string, string>> PriorValues { get; set; }
+		public List<KeyValuePair<string, string>> UpdatedValues { get; set; }
+		public string Operation { get; set; } 
 		public DateTime ChangeTimestamp { get; set; }
 	}
 }

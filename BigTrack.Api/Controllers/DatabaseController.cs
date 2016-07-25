@@ -76,8 +76,8 @@ namespace BigTrack.Api.Controllers
 			{
 				ChangeTimestamp = result.ChangeTimestamp,
 				Operation = result.OperationType.Name,
-				PriorValues = result.ColumnChanges.ToDictionary(ch=> ch.ColumnName, ch=> ch.PriorValue),
-				UpdatedValues = result.ColumnChanges.ToDictionary(ch=> ch.ColumnName, ch=> ch.UpdatedValue)
+				PriorValues = result.ColumnChanges.Select(ch=> new KeyValuePair<string, string> (ch.ColumnName, ch.PriorValue)).ToList(),
+				UpdatedValues = result.ColumnChanges.Select(ch=> new KeyValuePair<string, string>(ch.ColumnName, ch.UpdatedValue)).ToList()
 			};
 		}
 	}
