@@ -155,12 +155,12 @@ namespace BigTrack.Cassandra.Database
 			return new CassandraTableChange
 			{
 				Id = cassandraTableChangeRow.GetValue<Guid>("id"),
-				ChangeId = cassandraTableChangeRow.GetValue<Guid>("changeId"),
-				TableId = cassandraTableChangeRow.GetValue<Guid>("tableId"),
+				ChangeId = cassandraTableChangeRow.GetValue<string>("changeId"),
+				TableId = cassandraTableChangeRow.GetValue<string>("tableId"),
 				TableName = cassandraTableChangeRow.GetValue<string>("tableName"),
 				ChangeTimestamp = cassandraTableChangeRow.GetValue<DateTime>("changeTimestamp"),
 				User = cassandraTableChangeRow.GetValue<string>("dbUser"),
-				ColumnId = cassandraTableChangeRow.GetValue<Guid>("columnId"),
+				ColumnId = cassandraTableChangeRow.GetValue<string>("columnId"),
 				ColumnName = cassandraTableChangeRow.GetValue<string>("columnName"),
 				PriorValue = cassandraTableChangeRow.GetValue<string>("priorValue"),
 				UpdatedValue = cassandraTableChangeRow.GetValue<string>("updatedValue"),
