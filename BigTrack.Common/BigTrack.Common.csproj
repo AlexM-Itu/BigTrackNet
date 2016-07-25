@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Configuration\BigTrackConfiguration.cs" />
     <Compile Include="Configuration\ConfigurationManager.cs" />
+    <Compile Include="Domain\Column.cs" />
     <Compile Include="Domain\ColumnChange.cs" />
     <Compile Include="Domain\Operations.cs" />
     <Compile Include="Domain\OperationType.cs" />

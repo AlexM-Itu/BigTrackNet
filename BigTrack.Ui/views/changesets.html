@@ -22,4 +22,22 @@
 	<div id="changesets-content">
 		<div id="changesets-grid" ui-grid="{ data: changesets, columnDefs: changesetGridColumnsDefinition }" class="grid"></div>
 	</div>
+	<hr/>
+	<div id="changeset-details">
+		<table id="changeset-details-table" style="width:{{ sampleChengesetDetail.priorValues.length * 147 + 147 }}px">
+			<thead>
+			<tr>
+				<th ng-repeat="column in sampleChengesetDetail.priorValues">{{ column.key }}</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td ng-repeat="column in sampleChengesetDetail.priorValues">{{ column.value }}</td>
+			</tr>
+			<tr>
+				<td ng-repeat="column in sampleChengesetDetail.updatedValues">{{ column.value }}</td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
 </div>

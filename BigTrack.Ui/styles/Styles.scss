@@ -75,6 +75,20 @@ body{
 							}
 						}
 					}
+
+					#changeset-details{
+						width: 100%;
+						overflow: scroll;
+						
+						#changeset-details-table{
+							
+							td, th{
+								width: 147px;
+								border: 1px solid #000;
+								display: inline-block;
+							}
+						}
+					}
 				}
 			}
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using BigTrack.Cassandra.Configuration;
 using BigTrack.Cassandra.Domain;
@@ -7,7 +8,6 @@ using BigTrack.Common.Database;
 using BigTrack.Common.Domain;
 using Cassandra;
 using Newtonsoft.Json;
-using ColumnChange = BigTrack.Cassandra.Domain.ColumnChange;
 
 namespace BigTrack.Cassandra.Database
 {
@@ -32,25 +32,29 @@ namespace BigTrack.Cassandra.Database
 			using (var session = GetSession())
 			{
 				return session
-					.Execute("SELECT \"name\" FROM \"TableNames\"")
+					.Execute("SELECT \"id\", \"name\" FROM \"TableNames\"")
 					.Select(row => new Table
 					{
-						Id = row.GetValue<string>("name"),
+						Id = row.GetValue<string>("id"),
 						Name = row.GetValue<string>("name")
 					})
 					.ToList();
 			}
 		}
 		
-		public List<string> GetTableColumns(string tableId)
+		public List<Column> GetTableColumns(string tableId)
 		{
 			using (var session = GetSession())
 			{
-				var query = session.Prepare("select \"columnName\" from \"TableColumns\" where \"tableId\" = ?"); // todo replace*
+				var query = session.Prepare("select \"columnName\" from \"TableColumns\" where \"tableId\" = ?"); 
 
 				return session
 					.Execute(query.Bind(tableId))
-					.Select(row => row.GetValue<string>("columnName"))
+					.Select(row => new Column
+					{
+						Id = row.GetValue<string>("id"),
+						Name = row.GetValue<string>("columnName")
+					})
 					.ToList();
 			}
 		}
@@ -59,46 +63,28 @@ namespace BigTrack.Cassandra.Database
 		{
 			using (var session = GetSession())
 			{
-				var query = "select  * from TableChanges where tableName = tableId ";
+				var query = "SELECT \"changeid\"  FROM \"TableChanges\" where tableid =" + tableId;
 				if (searchOptions.FromDate.HasValue)
-					query += "and timestamp >= " + searchOptions.FromDate;
+					query += " and \"changetimestamp\" >= " + searchOptions.FromDate;
 
 				if (searchOptions.ToDate.HasValue)
-					query += "and timestamp <= " + searchOptions.ToDate;
+					query +=  " and \"changetimestamp\" <= " + searchOptions.ToDate;
 
 				if (searchOptions.User != null)
-					query += " and dbUser = " + searchOptions.User;
-				throw new NotImplementedException();
-				//if (searchOptions.AffectedColumns != null)
-				//{
-				//	foreach (var column in searchOptions.AffectedColumns)
-				//	{
-				//		query += "and "
-				//	}
-				//}
+					query += " and dbuser = " + searchOptions.User;
+				
+				if (searchOptions.AffectedColumns != null)
+				{
+					foreach (var column in searchOptions.AffectedColumns)
+					{
+						query += " and \"columnid\" = " + column;
+					}
+				}
 
-				//return session
-				//	.Execute(query)
-					//.Select(row=> new TableChange
-					//{
-					//	//Id = row.GetValue<string>("id"),
-					//	//ChangeTimestamp = row.GetValue<DateTime>("timestamp"),
-					//	//User = row.GetValue<string>("dbUser"),
-					//	//Table = new Table
-					//	//{
-					//	//	Id = row.GetValue<string>("tableName"),
-					//	//	Name = row.GetValue<string>("tableName"),
-					//	//},
-					//	//TableId = row.GetValue<string>("tableName"),,
-					//	//OperationType = new OperationType
-					//	//{
-					//	//	Name = row.GetValue<string>("operation"),
-					//	//},
-					//	//ColumnChanges = row.GetValue<cas>()
-
-
-					//})
-					//.Select(row=> row.GetValue<CassandraTableChange>())
+				return session.Execute(query)
+					.Select(row => row.GetValue<Guid>("changeid").ToString())
+					.Select(GetChangesetDetails)
+					.ToList();
 			}
 
 		}
@@ -107,40 +93,79 @@ namespace BigTrack.Cassandra.Database
 		{
 			using (var session = GetSession())
 			{
-				session.UserDefinedTypes.Define(UdtMap.For<ColumnChange>("ColumnChange")); // todo Cassandra lowercases the name
-				var query = session.Prepare("SELECT * FROM \"TableChanges\" where \"id\"=?");
+				var query = session.Prepare("SELECT \"id\", \"changeId\", \"tableId\", \"tableName\", \"changeTimestamp\", \"dbUser\", \"columnId\", \"columnName\", \"priorValue\", \"updatedValue\", \"operation\"  FROM \"TableChanges\" where \"changeId\"=?");
 					
-				var result = session.Execute(query.Bind(changesetId)).FirstOrDefault();
+				var result = session.Execute(query.Bind(changesetId)).ToList();
 
-				if (result == null)
-					return null;
-
-				return new TableChange
-				{
-					Id = result.GetValue<string>("id"),
-					Table = new Table
-					{
-						Id = result.GetValue<string>("tableName"),
-						Name = result.GetValue<string>("tableName"),
-					},
-					TableId = result.GetValue<string>("tableName"),
-					User = result.GetValue<string>("dbUser"),
-					OperationType = new OperationType
-					{
-						Name = result.GetValue<string>("operation"),
-					},
-					ChangeTimestamp = result.GetValue<DateTime>("timestamp"),
-					ColumnChanges = result
-						.GetValue<HashSet<ColumnChange>>("columnChanges")
-						.Select(change=> new Common.Domain.ColumnChange
-						{
-							ColumnName = change.ColumnsName,
-							PriorValue = change.PriorValue,
-							UpdatedValue = change.UpdatedValue
-						})
-						.ToList()
-				};
+				return ConvertCassandraTableChangesToCommonTableChange(result.Select(MapCassandraTableChange).ToList());
 			}
+		}
+
+		private TableChange ConvertCassandraTableChangesToCommonTableChange(List<CassandraTableChange> cassandraTableChanges)
+		{
+			if (!cassandraTableChanges.Any())
+				return null;
+
+			return new TableChange
+			{
+				Id = cassandraTableChanges.First().Id.ToString(),
+				TableId = cassandraTableChanges.First().TableId.ToString(),
+				Table = new Table
+				{
+					Id = cassandraTableChanges.First().TableId.ToString(),
+					Name = cassandraTableChanges.First().TableName
+				},
+				ChangeTimestamp = cassandraTableChanges.First().ChangeTimestamp,
+				OperationTypeId = cassandraTableChanges.First().Operation,
+				OperationType = new OperationType
+				{
+					Id = cassandraTableChanges.First().Operation,
+					Name = MapCassandraOperationTypeIdToName(cassandraTableChanges.First().Operation),
+				},
+				User = cassandraTableChanges.First().User,
+				ColumnChanges = cassandraTableChanges
+					.Select(change=> new ColumnChange
+					{
+						ColumnName = change.ColumnName,
+						PriorValue = change.PriorValue,
+						UpdatedValue = change.UpdatedValue
+					})
+					.ToList()
+			};
+		}
+
+		private string MapCassandraOperationTypeIdToName(byte operation)
+		{
+			switch (operation)
+			{
+				case 1:
+					return "Insert";
+				case  2:
+					return "Update";
+				case 3:
+					return "Delete";
+
+				default:
+					throw new InvalidEnumArgumentException(string.Format("Database operation {0} is unknown!", operation));
+			}
+		}
+
+		private CassandraTableChange MapCassandraTableChange(Row cassandraTableChangeRow)
+		{
+			return new CassandraTableChange
+			{
+				Id = cassandraTableChangeRow.GetValue<Guid>("id"),
+				ChangeId = cassandraTableChangeRow.GetValue<Guid>("changeId"),
+				TableId = cassandraTableChangeRow.GetValue<Guid>("tableId"),
+				TableName = cassandraTableChangeRow.GetValue<string>("tableName"),
+				ChangeTimestamp = cassandraTableChangeRow.GetValue<DateTime>("changeTimestamp"),
+				User = cassandraTableChangeRow.GetValue<string>("dbUser"),
+				ColumnId = cassandraTableChangeRow.GetValue<Guid>("columnId"),
+				ColumnName = cassandraTableChangeRow.GetValue<string>("columnName"),
+				PriorValue = cassandraTableChangeRow.GetValue<string>("priorValue"),
+				UpdatedValue = cassandraTableChangeRow.GetValue<string>("updatedValue"),
+				Operation = cassandraTableChangeRow.GetValue<byte>("operation")
+			};
 		}
 	}
 }

@@ -1,16 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using BigTrack.Common.Domain;
 
 namespace BigTrack.Cassandra.Domain
 {
 	public class CassandraTableChange
 	{
 		public Guid Id { get; set; }
-		public HashSet<ColumnChange> ColumnChanges{ get; set; }
-		public string User { get; set; }
-		public Operations Operation { get; set; }
+		public Guid ChangeId { get; set; }
+		public Guid TableId { get; set; }
 		public string TableName { get; set; }
-		public DateTime Timestamp { get; set; }
+		public DateTime ChangeTimestamp { get; set; }
+		public string User { get; set; }
+		public Guid ColumnId { get; set; } 
+		public string ColumnName { get; set; } 
+		public string PriorValue { get; set; }
+		public string UpdatedValue { get; set; }
+		public byte Operation { get; set; }
 	}
 }

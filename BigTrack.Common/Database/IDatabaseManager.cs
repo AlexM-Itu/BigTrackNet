@@ -7,7 +7,7 @@ namespace BigTrack.Common.Database
 	{
 		void SetConnectionString(string connectionString);
 		List<Table> GetDatabaseTables();
-		List<string> GetTableColumns(string tableId);
+		List<Column> GetTableColumns(string tableId);
 		List<TableChange> FindChangesets(string tableId, ChangeSearchOptions searchOptions);
 		TableChange GetChangesetDetails(string changesetId);
 	}

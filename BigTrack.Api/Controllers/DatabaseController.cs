@@ -4,6 +4,7 @@ using System.Web.Http;
 using BigTrack.Api.Models;
 using BigTrack.Common.Configuration;
 using BigTrack.Common.Database;
+using BigTrack.Common.Domain;
 
 namespace BigTrack.Api.Controllers
 {
@@ -29,7 +30,7 @@ namespace BigTrack.Api.Controllers
 
 		[Route("{databaseId}/tables/{tableId}/columns")]
 		[HttpGet]
-		public List<string> GetTableColumns(string databaseId, string tableId)
+		public List<Column> GetTableColumns(string databaseId, string tableId)
 		{
 			return configurationManager
 				.GetDatabaseManagerByDatabaseId(databaseId)

@@ -44,6 +44,13 @@ body {
           height: 272px; }
           body #container #main-area #content #changesets #changesets-content #changesets-grid .ui-grid-header {
             height: 32px; }
+        body #container #main-area #content #changesets #changeset-details {
+          width: 100%;
+          overflow: scroll; }
+          body #container #main-area #content #changesets #changeset-details #changeset-details-table td, body #container #main-area #content #changesets #changeset-details #changeset-details-table th {
+            width: 147px;
+            border: 1px solid #000;
+            display: inline-block; }
       body #container #main-area #sidebar {
         width: 20%;
         float: left; }
