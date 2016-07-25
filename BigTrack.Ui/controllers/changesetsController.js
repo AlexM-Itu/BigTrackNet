@@ -1,7 +1,13 @@
 ﻿angular
 	.module("BigTrack")
 	.controller("changesetsController", [
-		"configurationService", "$scope", function(configurationService, $scope) {
+		"configurationService", "$scope", "$window", "databaseService", "$route", function (configurationService, $scope, $window, databaseService, $route) {
+
+		var loadData = function() {
+			databaseService.getTableColumns($route.current.params.databaseId, $route.current.params.tableId).then(function(response) {
+				$scope.tableColumns = response.data;
+			});
+		};
 
 			$scope.changesetGridColumnsDefinition = [
 				{ field: 'changesetTimestamp', displayName: 'Timestamp', width: "*" },
@@ -54,45 +60,45 @@
 				}
 			];
 
-		$scope.tableColumns = [
-			{
-				id: 1,
-				name: 'Col1'
-			}, {
-				id: 2,
-				name: 'Col2'
-			}, {
-				id: 3,
-				name: 'Col3'
-			}, {
-				id: 4,
-				name: 'Col4'
-			}, {
-				id: 5,
-				name: 'Col5'
-			}, {
-				id: 6,
-				name: 'Col6'
-			}, {
-				id: 7,
-				name: 'Col7'
-			}, {
-				id: 8,
-				name: 'Col8'
-			}, {
-				id: 9,
-				name: 'Col9'
-			}, {
-				id: 10,
-				name: 'Col10'
-			}, {
-				id: 11,
-				name: 'Col11'
-			}, {
-				id: 12,
-				name: 'Col12'
-			}
-		];
+		//$scope.tableColumns = [
+		//	{
+		//		id: 1,
+		//		name: 'Col1'
+		//	}, {
+		//		id: 2,
+		//		name: 'Col2'
+		//	}, {
+		//		id: 3,
+		//		name: 'Col3'
+		//	}, {
+		//		id: 4,
+		//		name: 'Col4'
+		//	}, {
+		//		id: 5,
+		//		name: 'Col5'
+		//	}, {
+		//		id: 6,
+		//		name: 'Col6'
+		//	}, {
+		//		id: 7,
+		//		name: 'Col7'
+		//	}, {
+		//		id: 8,
+		//		name: 'Col8'
+		//	}, {
+		//		id: 9,
+		//		name: 'Col9'
+		//	}, {
+		//		id: 10,
+		//		name: 'Col10'
+		//	}, {
+		//		id: 11,
+		//		name: 'Col11'
+		//	}, {
+		//		id: 12,
+		//		name: 'Col12'
+		//	}
+		//];
 
 		$scope.sampleChengesetDetail = {
 			priorValues: [
@@ -130,5 +136,7 @@
 			operation: "Insert",
 			changeTimestamp: Date()
 		};
+
+		loadData();
 	}
 	]);
