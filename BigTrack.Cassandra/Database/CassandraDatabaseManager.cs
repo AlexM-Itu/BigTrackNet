@@ -63,26 +63,34 @@ namespace BigTrack.Cassandra.Database
 		{
 			using (var session = GetSession())
 			{
-				var query = "SELECT \"changeid\"  FROM \"TableChanges\" where tableid =" + tableId;
+				var query = string.Format("SELECT \"changeid\"  FROM \"TableChanges\" where \"tableid\" ='{0}'", tableId);
 				if (searchOptions.FromDate.HasValue)
-					query += " and \"changetimestamp\" >= " + searchOptions.FromDate;
+					query += string.Format(" and \"changetimestamp\" >= '{0}'", searchOptions.FromDate);
 
 				if (searchOptions.ToDate.HasValue)
-					query +=  " and \"changetimestamp\" <= " + searchOptions.ToDate;
+					query +=  string.Format(" and \"changetimestamp\" <= '{0}'", searchOptions.ToDate);
 
 				if (searchOptions.User != null)
-					query += " and dbuser = " + searchOptions.User;
+					query += string.Format(" and \"dbuser\" = +'{0}'", searchOptions.User);
 				
-				if (searchOptions.AffectedColumns != null)
+				if (searchOptions.AffectedColumns != null && searchOptions.AffectedColumns.Any())
 				{
+					query += " and (";
+					bool isFirst = true;
 					foreach (var column in searchOptions.AffectedColumns)
 					{
-						query += " and \"columnid\" = " + column;
+						query += string.Format(" {0} \"columnid\" = '{1}'", (!isFirst ? "or" : string.Empty), column);
+						isFirst = false;
 					}
+
+					query += ")";
 				}
 
+				query += " allow filtering";
+
 				return session.Execute(query)
-					.Select(row => row.GetValue<Guid>("changeid").ToString())
+					.Select(row => row.GetValue<string>("changeid").ToString())
+					.Distinct()
 					.Select(GetChangesetDetails)
 					.ToList();
 			}
@@ -108,11 +116,11 @@ namespace BigTrack.Cassandra.Database
 
 			return new TableChange
 			{
-				Id = cassandraTableChanges.First().Id.ToString(),
-				TableId = cassandraTableChanges.First().TableId.ToString(),
+				Id = cassandraTableChanges.First().ChangeId,
+				TableId = cassandraTableChanges.First().TableId,
 				Table = new Table
 				{
-					Id = cassandraTableChanges.First().TableId.ToString(),
+					Id = cassandraTableChanges.First().TableId,
 					Name = cassandraTableChanges.First().TableName
 				},
 				ChangeTimestamp = cassandraTableChanges.First().ChangeTimestamp,

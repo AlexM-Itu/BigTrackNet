@@ -54,10 +54,11 @@ namespace BigTrack.Api.Controllers
 				})
 				.Select(changeset => new ChangeSetListItemModel
 				{
+					ChangeId = changeset.Id,
 					ChangesetTimestamp = changeset.ChangeTimestamp,
 					User = changeset.User,
 					Columns = changeset.ColumnChanges.Select(col => col.ColumnName).ToList(),
-					Operation = changeset.OperationType.Name
+					Operation = changeset.OperationType.Name,
 				})
 				.ToList();
 		}
